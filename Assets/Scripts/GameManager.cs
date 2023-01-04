@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         }
         else if (Instance != this)
         {
-            Destroy(GameObject);
+            Destroy(gameObject);
         }
 
         SetUp();
@@ -49,13 +49,79 @@ public class GameManager : MonoBehaviour
 
         if (bricksPrefab != null)
         {
-            Instantiate(bricksPrefab, bricksPrefab.transform.position, Quaternion.identity);
+            Instantiate(bricksPrefab, bricksPrefab.transform.position, Quaternion.identity);            
         }
     }
 
     // 게임 재시작 설정
     void CheckGameOver()
     {
-        // 작성중
+        // 벽돌을 다 깼을 때
+        if (bricks < 1)
+        {
+            if (success != null)
+            {
+                success.SetActive(true);
+                // 시간을 2.5배로
+                Time.timeScale = 2.5f;
+                Invoke("Reset", resetDelay);
+            }
+        }
+
+        // 생명력을 소진했을 때
+        if (lives < 1)
+        {
+            if (gameOver != null)
+            {
+                gameOver.SetActive(true);
+                // 시간을 0.25배로
+                Time.timeScale = 0.25f;
+                Invoke("Reset", resetDelay);
+            }
+        }
+    }
+
+    private void Reset()
+    {
+        // 평균 타임을 설정
+        Time.timeScale = 1f;
+
+        Application.LoadLevel(Application.loadedLevel);
+    }
+
+    // 생명력을 잃게 되면 발생
+    public void LoseLife()
+    {
+        lives--;
+
+        if (txtLives != null)
+        {
+            txtLives.text = "LIFE : " + lives;
+        }
+
+        // 파티클 발생
+        if (DeathParticles != null)
+        {
+            Instantiate(DeathParticles, clonePaddle.transform.position, Quaternion.identity);
+        }
+
+        // 패들 없애기
+        Destroy(clonePaddle.gameObject);
+
+        // 딜레이 시간만큼 지나면 패들 생산
+        Invoke("SetupPaddle", resetDelay);
+        CheckGameOver();
+    }
+
+    // 패들 생산
+    private void SetupPaddle()
+    {
+        clonePaddle = Instantiate(paddle, transform.position, Quaternion.identity) as GameObject;
+    }
+
+    public void DestroyBrick()
+    {
+        bricks--;
+        CheckGameOver();
     }
 }

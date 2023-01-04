@@ -27,7 +27,7 @@ public class BallCtrl : MonoBehaviour
             transform.parent = null;
             isBallInPlay = true;
             ballRigidBody.isKinematic = false;
-            ballRigidBody.AddForce(new Vector3(BallInitialVelocity, BallInitialVelocity, 0f));
+            ballRigidBody.AddForce(new Vector2(BallInitialVelocity, BallInitialVelocity));
         }
         
     }
