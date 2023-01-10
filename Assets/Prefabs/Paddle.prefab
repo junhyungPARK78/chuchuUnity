@@ -148,8 +148,8 @@ GameObject:
   - component: {fileID: 3845568471697904764}
   - component: {fileID: 3845568471697904767}
   - component: {fileID: 3845568471697904766}
-  - component: {fileID: 4626246354203167302}
   - component: {fileID: 1598251904}
+  - component: {fileID: 3728430060221986794}
   m_Layer: 0
   m_Name: Paddle
   m_TagString: Untagged
@@ -251,19 +251,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &4626246354203167302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3845568471697904761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4d20f11344c14d8cb65d410c52d8728, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PaddleSpeed: 1
 --- !u!50 &1598251904
 Rigidbody2D:
   serializedVersion: 4
@@ -285,3 +272,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &3728430060221986794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3845568471697904761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9125fa5d708745748fd16cefab743f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
