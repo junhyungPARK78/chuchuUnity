@@ -7,12 +7,6 @@ public class PaddleCtrl : MonoBehaviour
     public float PaddleSpeed = 1f; // Paddle의 이동 스피드
     private Vector2 playerPos = new Vector2(0f, -4f); // Paddle의 초기 위치
     
-    // // Start is called before the first frame update
-    // void Start()
-    // {
-        
-    // }
-
     // Update is called once per frame
     void Update()
     {
