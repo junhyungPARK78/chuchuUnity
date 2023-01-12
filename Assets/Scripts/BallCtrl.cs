@@ -21,7 +21,7 @@ public class BallCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 마우스 오른쪽 키를 누르면 볼에 가속도를 준다
+        // 마우스 왼쪽 키를 누르면 볼에 가속도를 준다
         if (Input.GetButtonDown("Fire1") && !isBallInPlay)
         {
             transform.parent = null;
