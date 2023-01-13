@@ -15,6 +15,7 @@ public class PaddleCtrl : MonoBehaviour
         Debug.Log ($"ball Position on Paddle.x : {(other.transform.position.x) - (playerPos.x)}");
         ballRigidBody = other.GetComponent<Rigidbody2D>();
         Debug.Log ($"ballRigidBody Vector = {ballRigidBody.GetVector(playerPos)}");
+        // Debug.Log ($"ballRigidBody Vector = {ballRigidBody.GetVector(other.position)}");
 
         Vector2 inDirection = ballRigidBody.velocity; // 입사 벡터 (속도)
         Vector2 inNormal = transform.up; // 노말 벡터
