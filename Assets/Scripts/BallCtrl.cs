@@ -6,7 +6,7 @@ public class BallCtrl : MonoBehaviour
 {
     // 볼의 가속 속도
     public float BallInitialVelocity = 300f;
-    private Vector2 startVector = new Vector2(1f, 1f);
+    private Vector2 startVector = new Vector2(1f, 2f).normalized;
     
     // 리지드 바디
     private Rigidbody2D ballRigidBody = null;
@@ -34,11 +34,9 @@ public class BallCtrl : MonoBehaviour
             ====== Log 종료 ======");
 
             // 공 반사시키기
-            Vector2 inDirection = ballRigidBody.velocity; // 입사 벡터 (속도)
-            Vector2 inNormal = transform.up; // 노말 벡터
-            Vector2 result = Vector2.Reflect(inDirection, inNormal);
-
-            ballRigidBody.velocity = result;
+            // 공 튀기는 각도의 벡터는 y=1 기준으로 x를 -3.5 ~ 3.5 로 조절하면 될 듯하다.
+            Vector2 ballDirection = new Vector2(-3.5f, 1f).normalized;
+            ballRigidBody.velocity = ballDirection * BallInitialVelocity * 0.025f;
         }
 
         if (other.tag == "DeadZone")
@@ -79,7 +77,8 @@ public class BallCtrl : MonoBehaviour
             transform.parent = null;
             isBallInPlay = true;
             ballRigidBody.isKinematic = false;
-            ballRigidBody.AddForce(startVector * BallInitialVelocity);
+            // ballRigidBody.AddForce(startVector * BallInitialVelocity);
+            ballRigidBody.velocity = startVector * BallInitialVelocity * 0.025f;
 
             // Debug.Log ($"ballRigidBody Start Vector = {ballRigidBody.GetVector(parentPos)}");
         }
