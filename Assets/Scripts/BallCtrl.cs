@@ -23,19 +23,22 @@ public class BallCtrl : MonoBehaviour
     {
         if (other.tag == "Paddle")
         {
+            float ballPositionOnPaddle = ((gameObject.transform.position.x) - (other.transform.position.x)) * 2f;
+            ballPositionOnPaddle = Mathf.Clamp(ballPositionOnPaddle, -1f, 1f);
+
             // debug 정보 모음
             Debug.Log (@$"
             ====== Ball과 Paddle 관련 Log 시작 ======
             ・Paddle에 접촉했습니다.
             ・paddle Position.x : {other.transform.position.x}
             ・Ball Position.x : {gameObject.transform.position.x}
-            ・ball Position on Paddle.x : {(gameObject.transform.position.x) - (other.transform.position.x)}
+            ・ball Position on Paddle.x : {ballPositionOnPaddle}
             ・ballRigidBody Vector = {ballRigidBody.GetVector(gameObject.transform.position)}
             ====== Log 종료 ======");
 
             // 공 반사시키기
             // 공 튀기는 각도의 벡터는 y=1 기준으로 x를 -3.5 ~ 3.5 로 조절하면 될 듯하다.
-            Vector2 ballDirection = new Vector2(-3.5f, 1f).normalized;
+            Vector2 ballDirection = new Vector2(ballPositionOnPaddle * 3.5f, 1f).normalized;
             ballRigidBody.velocity = ballDirection * BallInitialVelocity * 0.025f;
         }
 
