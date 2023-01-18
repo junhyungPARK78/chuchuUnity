@@ -11,11 +11,13 @@ public class BlockCtrl : MonoBehaviour
     {
         if (brickParticle != null)
         {
-            Debug.Log ("Break Block");
             // 이펙트를 발생시킨다
             Instantiate(brickParticle, transform.position, Quaternion.identity);
             
+            // GameManager의 DestroyBrick 함수 실행
             GameManager.Instance.DestroyBrick();
+            
+            // block Game Object 제거
             Destroy(gameObject);
         }
     }

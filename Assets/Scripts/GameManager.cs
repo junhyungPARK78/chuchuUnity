@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -86,7 +87,8 @@ public class GameManager : MonoBehaviour
         // 평균 타임을 설정
         Time.timeScale = 1f;
 
-        Application.LoadLevel(Application.loadedLevel);
+        // 현재 열려있는 scene을 다시 연다
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     // 생명력을 잃게 되면 발생
