@@ -44,7 +44,7 @@ PlayerSettings:
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1920
   defaultScreenHeight: 1080
-  defaultScreenWidthWeb: 576
+  defaultScreenWidthWeb: 564
   defaultScreenHeightWeb: 1024
   m_StereoRenderingPath: 0
   m_ActiveColorSpace: 0
@@ -529,7 +529,7 @@ PlayerSettings:
   webGLDebugSymbols: 0
   webGLEmscriptenArgs: 
   webGLModulesDirectory: 
-  webGLTemplate: PROJECT:responsive-template-2020
+  webGLTemplate: PROJECT:Minimal_PJH
   webGLAnalyzeBuildSize: 0
   webGLUseEmbeddedResources: 0
   webGLCompressionFormat: 1
