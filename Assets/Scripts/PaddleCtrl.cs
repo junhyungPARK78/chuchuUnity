@@ -16,7 +16,7 @@ public class PaddleCtrl : MonoBehaviour
         float xPos = Camera.main.ScreenToWorldPoint(cameraPosition).x;
 
         // Paddle 이동 제한
-        playerPos = new Vector2(Mathf.Clamp(xPos, -2f, 2f), -4f);
+        playerPos = new Vector2(Mathf.Clamp(xPos, -3.66f, 3.66f), -4f);
         transform.position = playerPos;
     }
 }
