@@ -72,7 +72,7 @@ public class BallCtrl : MonoBehaviour
     void Update()
     {
         // 마우스 왼쪽 키를 누르면 볼에 가속도를 준다
-        if (Input.GetButtonDown("Fire1") && !isBallInPlay)
+        if (Input.GetButtonUp("Fire1") && !isBallInPlay)
         {
             Vector2 parentPos = gameObject.transform.parent.transform.position;
             Debug.Log ($"parentPos : {parentPos}");
