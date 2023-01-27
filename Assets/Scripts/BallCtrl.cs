@@ -71,8 +71,10 @@ public class BallCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        TouchInfo touchInfo = AppUtil.GetTouch();
+
         // 마우스 왼쪽 키를 누르면 볼에 가속도를 준다
-        if (Input.GetButtonUp("Fire1") && !isBallInPlay)
+        if (touchInfo == TouchInfo.Ended)
         {
             Vector2 parentPos = gameObject.transform.parent.transform.position;
             Debug.Log ($"parentPos : {parentPos}");
@@ -80,11 +82,8 @@ public class BallCtrl : MonoBehaviour
             transform.parent = null;
             isBallInPlay = true;
             ballRigidBody.isKinematic = false;
-            // ballRigidBody.AddForce(startVector * BallInitialVelocity);
-            ballRigidBody.velocity = startVector * BallInitialVelocity * 0.025f;
-
-            // Debug.Log ($"ballRigidBody Start Vector = {ballRigidBody.GetVector(parentPos)}");
-        }
-        
+            
+            ballRigidBody.velocity = startVector * BallInitialVelocity * 0.025f;            
+        }        
     }
 }
