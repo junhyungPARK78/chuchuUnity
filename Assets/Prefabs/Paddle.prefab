@@ -262,3 +262,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9125fa5d708745748fd16cefab743f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursorParticlePrefab: {fileID: 8692070757384713795, guid: 75c5b6e7041004f98af10f15c4388fa9, type: 3}
