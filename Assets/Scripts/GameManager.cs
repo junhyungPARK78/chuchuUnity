@@ -28,6 +28,14 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // // 게임 표시 방향 조정
+        // // Screen.orientation = ScreenOrientation.Portrait;
+        // Screen.autorotateToPortrait = true;
+        // Screen.autorotateToPortraitUpsideDown = true;
+        // Screen.autorotateToLandscapeLeft = false;
+        // Screen.autorotateToLandscapeRight = false;
+        // Screen.orientation = ScreenOrientation.AutoRotation;
+        
         if (Instance == null)
         {
             Instance = this;
