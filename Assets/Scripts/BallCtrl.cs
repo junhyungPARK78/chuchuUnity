@@ -5,7 +5,7 @@ using UnityEngine;
 public class BallCtrl : MonoBehaviour
 {
     public float BallInitialVelocity; // 볼의 가속 속도
-    private Vector2 startVector = new Vector2(1f, 2f).normalized;
+    private Vector2 ballVector;
     private float timer;
     private int waitTime;
     
@@ -17,6 +17,8 @@ public class BallCtrl : MonoBehaviour
 
     void Start()
     {
+        ballVector = new Vector2(1f, 2f).normalized;
+
         timer = 0.0f;
         waitTime = 5;
     }
@@ -51,8 +53,25 @@ public class BallCtrl : MonoBehaviour
 
         if (other.tag == "DeadZone")
         {
-            // 공 제거하기
-            Destroy(gameObject);
+            // debug 정보 모음
+            Debug.Log (@$"
+            ====== Ball과 DeadZone 관련 Log 시작 ======
+            ・DeadZone에 접촉했습니다.
+            ====== Log 종료 ======");
+
+            // ball 반사
+            ballVector = ballRigidBody.GetVector(gameObject.transform.position);
+            Debug.Log ($"ballVector : {ballVector}");
+            ballVector.y *= -1f;
+            Debug.Log ($"ballVector : {ballVector}");
+            Debug.Log ($"ballVector.normalized : {ballVector.normalized}");
+            BallVelocityPlus(-2.0f);
+            ballRigidBody.velocity = ballVector.normalized * BallInitialVelocity;
+            
+            // ball speed LOG
+            Debug.Log ($"BallInitialVelocity : {BallInitialVelocity}");
+
+            GameManager.Instance.LoseLife();
         }
     }
 
@@ -76,8 +95,7 @@ public class BallCtrl : MonoBehaviour
         timer += Time.deltaTime;
         if (timer > waitTime)
         {
-            BallInitialVelocity += 0.3f;
-            BallInitialVelocity = Mathf.Clamp(BallInitialVelocity, 4f, 8f); // ball 최저, 최고 속도 설정
+            BallVelocityPlus(0.3f);
             Debug.Log ($"BallInitialVelocity : {BallInitialVelocity}");
             
             timer = 0.0f;
@@ -97,7 +115,13 @@ public class BallCtrl : MonoBehaviour
             isBallInPlay = true;
             ballRigidBody.isKinematic = false;
             
-            ballRigidBody.velocity = startVector * BallInitialVelocity;
+            ballRigidBody.velocity = ballVector * BallInitialVelocity;
         }        
+    }
+
+    void BallVelocityPlus(float speed)
+    {
+        BallInitialVelocity += speed;
+        BallInitialVelocity = Mathf.Clamp(BallInitialVelocity, 4f, 8f); // ball 최저, 최고 속도
     }
 }

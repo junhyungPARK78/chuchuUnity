@@ -7,10 +7,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     // 남은 생명력
-    public int lives = 3;
+    public int lives;
 
     // 벽돌 갯수
-    public int bricks = 32;
+    public int bricks;
 
     // 게임 재시작 시간
     public float resetDelay;
@@ -28,6 +28,14 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        lives = 10;
+        bricks = 32;
+
+        if (txtLives != null)
+        {
+            txtLives.text = "LIFE : " + lives;
+        }
+
         // // 게임 표시 방향 조정
         // // Screen.orientation = ScreenOrientation.Portrait;
         // Screen.autorotateToPortrait = true;
