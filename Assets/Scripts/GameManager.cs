@@ -115,11 +115,11 @@ public class GameManager : MonoBehaviour
             Instantiate(DeathParticles, clonePaddle.transform.position, Quaternion.identity);
         }
 
-        // 패들 없애기
-        Destroy(clonePaddle.gameObject);
+        // // 패들 없애기
+        // Destroy(clonePaddle.gameObject);
 
-        // 딜레이 시간만큼 지나면 패들 생산
-        Invoke("SetupPaddle", resetDelay);
+        // // 딜레이 시간만큼 지나면 패들 생산
+        // Invoke("SetupPaddle", resetDelay);
         CheckGameOver();
     }
 
