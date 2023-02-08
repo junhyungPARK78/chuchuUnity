@@ -53,20 +53,18 @@ public class BallCtrl : MonoBehaviour
 
         if (other.tag == "DeadZone")
         {
+            // ball 반사
+            ballVector = ballRigidBody.GetVector(gameObject.transform.position);
+            ballVector.y *= -1f;
+            BallVelocityPlus(-2.0f);
+            ballRigidBody.velocity = ballVector.normalized * BallInitialVelocity;
+
             // debug 정보 모음
             Debug.Log (@$"
             ====== Ball과 DeadZone 관련 Log 시작 ======
             ・DeadZone에 접촉했습니다.
+            ・ball의 반사 vector : {ballVector}
             ====== Log 종료 ======");
-
-            // ball 반사
-            ballVector = ballRigidBody.GetVector(gameObject.transform.position);
-            Debug.Log ($"ballVector : {ballVector}");
-            ballVector.y *= -1f;
-            Debug.Log ($"ballVector : {ballVector}");
-            Debug.Log ($"ballVector.normalized : {ballVector.normalized}");
-            BallVelocityPlus(-2.0f);
-            ballRigidBody.velocity = ballVector.normalized * BallInitialVelocity;
             
             // ball speed LOG
             Debug.Log ($"BallInitialVelocity : {BallInitialVelocity}");
