@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DeathZone : MonoBehaviour
 {
-    private void OnTriggerEnter2D()
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        GameManager.Instance.LoseLife();
+        // GameManager.Instance.LoseLife();
     }
 }
