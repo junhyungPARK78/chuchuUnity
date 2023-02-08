@@ -5,6 +5,7 @@ using UnityEngine;
 public class BallCtrl : MonoBehaviour
 {
     public float BallInitialVelocity; // 볼의 가속 속도
+    private Vector2 startVector;
     private Vector2 ballVector;
     private float timer;
     private int waitTime;
@@ -17,7 +18,7 @@ public class BallCtrl : MonoBehaviour
 
     void Start()
     {
-        ballVector = new Vector2(1f, 2f).normalized;
+        startVector = new Vector2(1f, 2f).normalized;
 
         timer = 0.0f;
         waitTime = 5;
@@ -54,8 +55,8 @@ public class BallCtrl : MonoBehaviour
         if (other.tag == "DeadZone")
         {
             // ball 반사
-            ballVector = ballRigidBody.GetVector(gameObject.transform.position);
-            ballVector.y *= -1f;
+            ballVector = new Vector2(Random.Range(-1.5f, 1.5f), 1f);
+            // ballVector.y = 1f;
             BallVelocityPlus(-2.0f);
             ballRigidBody.velocity = ballVector.normalized * BallInitialVelocity;
 
@@ -113,7 +114,7 @@ public class BallCtrl : MonoBehaviour
             isBallInPlay = true;
             ballRigidBody.isKinematic = false;
             
-            ballRigidBody.velocity = ballVector * BallInitialVelocity;
+            ballRigidBody.velocity = startVector * BallInitialVelocity;
         }        
     }
 
