@@ -9,6 +9,7 @@ public class BallCtrl : MonoBehaviour
     private Vector2 ballVector;
     private float timer;
     private int waitTime;
+    private Vector2 hitPos;
     
     // 리지드 바디
     private Rigidbody2D ballRigidBody = null;
@@ -31,6 +32,11 @@ public class BallCtrl : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        hitPos = other.ClosestPoint(this.transform.position);
+        ballVector = ballRigidBody.GetVector(gameObject.transform.position);
+
+        Debug.DrawLine(hitPos, hitPos + ballVector, Color.yellow, 2, false);
+        
         if (other.tag == "Paddle")
         {
             float ballPositionOnPaddle = ((gameObject.transform.position.x) - (other.transform.position.x)) * 2f;
@@ -43,7 +49,7 @@ public class BallCtrl : MonoBehaviour
             ・paddle Position.x : {other.transform.position.x}
             ・Ball Position.x : {gameObject.transform.position.x}
             ・ball Position on Paddle.x : {ballPositionOnPaddle}
-            ・ballRigidBody Vector = {ballRigidBody.GetVector(gameObject.transform.position)}
+            ・ballRigidBody Vector = {ballVector}
             ====== Log 종료 ======");
 
             // 공 반사시키기
@@ -55,8 +61,8 @@ public class BallCtrl : MonoBehaviour
         if (other.tag == "DeadZone")
         {
             // ball 반사
-            ballVector = new Vector2(Random.Range(-1.5f, 1.5f), 1f);
-            // ballVector.y = 1f;
+            // ballVector = new Vector2(Random.Range(-1.5f, 1.5f), 1f);
+            ballVector.y *= -1;
             BallVelocityPlus(-2.0f);
             ballRigidBody.velocity = ballVector.normalized * BallInitialVelocity;
 
@@ -76,6 +82,11 @@ public class BallCtrl : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
+        // foreach (ContactPoint2D contact in other.contacts)
+        // {
+        //     Debug.DrawLine(contact.point, contact.point + contact.normal, Color.yellow, 2, false);
+        // }
+
         if (other.gameObject.CompareTag("Block"))
         {
             // debug 정보 모음
@@ -87,7 +98,6 @@ public class BallCtrl : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         // ball speed 시간으로 증가
