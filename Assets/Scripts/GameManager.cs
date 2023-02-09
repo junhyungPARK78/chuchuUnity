@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lives = 10;
+        lives = 99;
         bricks = 32;
 
         if (txtLives != null)
