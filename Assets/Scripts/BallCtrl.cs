@@ -33,7 +33,7 @@ public class BallCtrl : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         hitPos = other.ClosestPoint(this.transform.position);
-        ballVector = ballRigidBody.GetVector(gameObject.transform.position);
+        ballVector = ballRigidBody.velocity;
 
         Debug.DrawLine(hitPos, hitPos + ballVector, Color.yellow, 2, false);
         
@@ -56,6 +56,12 @@ public class BallCtrl : MonoBehaviour
             // 공 튀기는 각도의 벡터는 y=1 기준으로 x를 -3.5 ~ 3.5 로 조절하면 될 듯하다.
             Vector2 ballDirection = new Vector2(ballPositionOnPaddle * 3.5f, 1f).normalized;
             ballRigidBody.velocity = ballDirection * BallInitialVelocity;
+        }
+
+        if (other.tag == "Roof")
+        {
+            // 천장 반사
+            Debug.Log ("천장에 부딪혔다");
         }
 
         if (other.tag == "DeadZone")
