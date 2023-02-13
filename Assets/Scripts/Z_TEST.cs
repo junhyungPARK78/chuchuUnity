@@ -6,7 +6,7 @@ public class Z_TEST : MonoBehaviour
 {
     private float q = 0.0f;
     private List<int> nums = new List<int>();
-    private int sampleNum = 10;
+    private int sampleNum = 35;
 
     void Start()
     {
@@ -36,11 +36,13 @@ public class Z_TEST : MonoBehaviour
     {
         foreach (int numX in nums)
         {
-            foreach (int numY in nums)
-            {
-                Debug.DrawLine(Vector2.zero, new Vector2(numX, numY), Color.red);
-                Debug.DrawLine(Vector2.zero, new Vector2(numX, numY).normalized, Color.green);
-            }
+            // foreach (int numY in nums)
+            // {
+            //     Debug.DrawLine(Vector2.zero, new Vector2(numX, numY), Color.red);
+            //     Debug.DrawLine(Vector2.zero, new Vector2(numX, numY).normalized, Color.green);
+            // }
+            Debug.DrawLine(Vector2.zero, new Vector2(numX, 10), Color.red);
+            Debug.DrawLine(Vector2.zero, new Vector2(numX, 10).normalized, Color.green);
         }
 
         

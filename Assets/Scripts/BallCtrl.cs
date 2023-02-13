@@ -17,17 +17,17 @@ public class BallCtrl : MonoBehaviour
     // 볼 플레이 선택 여부
     private bool isBallInPlay = false;
 
+    private void Awake()
+    {
+        ballRigidBody = GetComponent<Rigidbody2D>();
+    }
+
     void Start()
     {
         startVector = new Vector2(1f, 2f).normalized;
 
         timer = 0.0f;
         waitTime = 5;
-    }
-
-    private void Awake()
-    {
-        ballRigidBody = GetComponent<Rigidbody2D>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
