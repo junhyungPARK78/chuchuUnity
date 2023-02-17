@@ -63,28 +63,28 @@ public static class AppUtil
     }
 
     //벡터를 각도로 변환
-    public static float VectorToDegree(Vector2 vector)
+    public static double VectorToDegree(Vector2 vector)
     {
-        float radian = Math.Atan2(vector.y, vector.x);
-        return (radian*180.0/Math.PI);
+        float radian = Mathf.Atan2(vector.y, vector.x);
+        return (radian*180.0/Mathf.PI);
     }
 
     //벡터를 라디안으로 변환
-    public static float VectorToRadian(Vector2 vector)
+    public static double VectorToRadian(Vector2 vector)
     {
-        return Math.Atan2(vector.y, vector.x);
+        return Mathf.Atan2(vector.y, vector.x);
     }
 
     //라디안을 각도로 변환
-    public static float RadianToDegree(float radian)
+    public static double RadianToDegree(double radian)
     {
-        return (radian * 180.0 / Math.PI);
+        return (radian * 180.0 / Mathf.PI);
     }
 
     //각도를 라디안으로 변환
-    public static float DegreeToRadian(float degree)
+    public static double DegreeToRadian(double degree)
     {
-        return (Math.PI / 180.0) * degree;
+        return (Mathf.PI / 180.0) * degree;
     }
 
     
