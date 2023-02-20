@@ -5,11 +5,14 @@ using UnityEngine;
 public class BallCtrl : MonoBehaviour
 {
     public float BallInitialVelocity; // 볼의 가속 속도
+    public float reflectAngleRangeOnPaddle; // paddle에서 볼이 반사되는 허용 각도
     private Vector2 startVector;
     private Vector2 ballVector;
     private float timer;
     private int waitTime;
     private Vector2 hitPos;
+    private float ballReflectQuaternion;
+    private Vector3 ballReflectVector;
     
     // 리지드 바디
     private Rigidbody2D ballRigidBody = null;
@@ -24,6 +27,7 @@ public class BallCtrl : MonoBehaviour
 
     void Start()
     {
+        reflectAngleRangeOnPaddle = 160f;
         startVector = new Vector2(1f, 2f).normalized;
 
         timer = 0.0f;
@@ -42,6 +46,10 @@ public class BallCtrl : MonoBehaviour
             float ballPositionOnPaddle = ((gameObject.transform.position.x) - (other.transform.position.x)) * 2f;
             ballPositionOnPaddle = Mathf.Clamp(ballPositionOnPaddle, -1f, 1f);
 
+            // ballPositionOnPaddle에 의한 반사각 계산
+            ballReflectQuaternion = (ballPositionOnPaddle * -1) * (reflectAngleRangeOnPaddle * 0.25f) +90;
+            ballReflectVector = Quaternion.AngleAxis(ballReflectQuaternion, Vector3.forward) * Vector2.right;
+
             // debug 정보 모음
             Debug.Log (@$"
             ====== Ball과 Paddle 관련 Log 시작 ======
@@ -49,13 +57,11 @@ public class BallCtrl : MonoBehaviour
             ・paddle Position.x : {other.transform.position.x}
             ・Ball Position.x : {gameObject.transform.position.x}
             ・ball Position on Paddle.x : {ballPositionOnPaddle}
-            ・ballRigidBody Vector = {ballVector}
+            ・ball 반사 Vector = {ballReflectVector}
             ====== Log 종료 ======");
 
             // 공 반사시키기
-            // 공 튀기는 각도의 벡터는 y=1 기준으로 x를 -3.5 ~ 3.5 로 조절하면 될 듯하다.
-            Vector2 ballDirection = new Vector2(ballPositionOnPaddle * 3.5f, 1f).normalized;
-            ballRigidBody.velocity = ballDirection * BallInitialVelocity;
+            ballRigidBody.velocity = ballReflectVector * BallInitialVelocity;
         }
 
         if (other.tag == "Roof")
