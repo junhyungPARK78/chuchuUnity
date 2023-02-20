@@ -39,7 +39,7 @@ public class BallCtrl : MonoBehaviour
         hitPos = other.ClosestPoint(this.transform.position);
         ballVector = ballRigidBody.velocity;
 
-        Debug.DrawLine(hitPos, hitPos + ballVector, Color.yellow, 2, false);
+        Debug.DrawLine(hitPos, ballVector.normalized, Color.yellow, 1.5f, false);
         
         if (other.tag == "Paddle")
         {
