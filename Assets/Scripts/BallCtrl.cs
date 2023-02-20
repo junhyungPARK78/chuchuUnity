@@ -36,10 +36,10 @@ public class BallCtrl : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        hitPos = other.ClosestPoint(this.transform.position);
+        hitPos = gameObject.transform.position;
         ballVector = ballRigidBody.velocity;
-
-        Debug.DrawLine(hitPos, ballVector.normalized, Color.yellow, 1.5f, false);
+        
+        Debug.DrawLine(hitPos, hitPos + ballVector, Color.yellow, 1.5f, false);
         
         if (other.tag == "Paddle")
         {
@@ -67,7 +67,22 @@ public class BallCtrl : MonoBehaviour
         if (other.tag == "Roof")
         {
             // 천장 반사
-            Debug.Log ("천장에 부딪혔다");
+            ballVector = Vector2.Reflect(ballVector, Vector2.down);
+            ballRigidBody.velocity = ballVector.normalized * BallInitialVelocity;
+        }
+
+        if (other.tag == "WallLeft")
+        {
+            // 왼쪽 벽 반사
+            ballVector = Vector2.Reflect(ballVector, Vector2.right);
+            ballRigidBody.velocity = ballVector.normalized * BallInitialVelocity;
+        }
+
+        if (other.tag == "WallRight")
+        {
+            // 오른쪽 벽 반사
+            ballVector = Vector2.Reflect(ballVector, Vector2.left);
+            ballRigidBody.velocity = ballVector.normalized * BallInitialVelocity;
         }
 
         if (other.tag == "DeadZone")
