@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Z_TEST : MonoBehaviour
 {
-    private float q = 0.0f;
     private List<int> nums = new List<int>();
-    private int sampleNum = 35;
+    private int sampleNum = 90;
+    private Vector3 ballReflectVector;
 
     void Start()
     {
@@ -14,6 +14,9 @@ public class Z_TEST : MonoBehaviour
         {
             nums.Add(i);
         }
+
+        
+
         // Debug.Log (nums[2]);
         
         // draw a 5-unit white line from the origin for 2.5 seconds
@@ -34,6 +37,9 @@ public class Z_TEST : MonoBehaviour
     
     void FixedUpdate()
     {
+        Debug.DrawLine(Vector2.zero, Vector2.right * 10, Color.red);
+        // Debug.DrawLine(Vector2.zero, ballReflectVector * 10, Color.blue);
+
         foreach (int numX in nums)
         {
             // foreach (int numY in nums)
@@ -41,8 +47,8 @@ public class Z_TEST : MonoBehaviour
             //     Debug.DrawLine(Vector2.zero, new Vector2(numX, numY), Color.red);
             //     Debug.DrawLine(Vector2.zero, new Vector2(numX, numY).normalized, Color.green);
             // }
-            Debug.DrawLine(Vector2.zero, new Vector2(numX, 10), Color.red);
-            Debug.DrawLine(Vector2.zero, new Vector2(numX, 10).normalized, Color.green);
+            ballReflectVector = Quaternion.AngleAxis(numX + 90, Vector3.forward) * Vector2.right;
+            Debug.DrawLine(Vector2.zero, ballReflectVector, Color.green);
         }
 
         
