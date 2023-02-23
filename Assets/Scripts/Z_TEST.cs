@@ -20,8 +20,13 @@ public class Z_TEST : MonoBehaviour
         // 두 vector의 각도 구하기 START
         testAngle = 0.0f;
         vector1 = Vector2.right;
-        vector2 = new Vector2(-1, 1);
-        int testCount = 100000;
+        vector2 = new Vector2(1f, Mathf.Tan(5f));
+        // int testCount = 100000;
+
+        testAngle = Mathf.Atan2(vector2.y, vector2.x) * Mathf.Rad2Deg;
+        Debug.Log (testAngle);
+        Debug.Log ($"Mathf.Tan(5f) : {Mathf.Tan(5f)}");
+        
 
         // System.Diagnostics.Stopwatch watch1 = new System.Diagnostics.Stopwatch();
         // watch1.Start();
@@ -29,23 +34,23 @@ public class Z_TEST : MonoBehaviour
         // Debug.Log($"Vector2.SignedAngle : {watch1.ElapsedMilliseconds} ms");
 
 
-        System.Diagnostics.Stopwatch watch1 = new System.Diagnostics.Stopwatch();
-        watch1.Start();
-        for (int i = 0; i < testCount; ++i)
-        {
-            testAngle = Vector2.SignedAngle(vector1, vector2) + i;            
-        }
-        watch1.Stop();
-        Debug.Log($"Vector2.SignedAngle : {watch1.ElapsedMilliseconds} ms");
+        // System.Diagnostics.Stopwatch watch1 = new System.Diagnostics.Stopwatch();
+        // watch1.Start();
+        // for (int i = 0; i < testCount; ++i)
+        // {
+        //     testAngle = Vector2.SignedAngle(vector1, vector2) + i;            
+        // }
+        // watch1.Stop();
+        // Debug.Log($"Vector2.SignedAngle : {watch1.ElapsedMilliseconds} ms");
 
-        System.Diagnostics.Stopwatch watch2 = new System.Diagnostics.Stopwatch();
-        watch2.Start();
-        for (int i = 0; i < testCount; ++i)
-        {
-            testAngle = Mathf.Atan2(vector2.y, vector2.x) * Mathf.Rad2Deg + i;
-        }
-        watch2.Stop();
-        Debug.Log($"Mathf.Atan2 : {watch2.ElapsedMilliseconds} ms");
+        // System.Diagnostics.Stopwatch watch2 = new System.Diagnostics.Stopwatch();
+        // watch2.Start();
+        // for (int i = 0; i < testCount; ++i)
+        // {
+        //     testAngle = Mathf.Atan2(vector2.y, vector2.x) * Mathf.Rad2Deg + i;
+        // }
+        // watch2.Stop();
+        // Debug.Log($"Mathf.Atan2 : {watch2.ElapsedMilliseconds} ms");
 
 
         
@@ -85,13 +90,13 @@ public class Z_TEST : MonoBehaviour
     
     void FixedUpdate()
     {
-        // 두 vector의 각도 구하기 START
-        vector2 = Quaternion.AngleAxis(testAngle, Vector3.forward) * vector1;
-        vector3 = Quaternion.AngleAxis(testAngle * -1f, Vector3.forward) * vector1;
-        Debug.DrawLine(Vector2.zero, vector1 * 10, Color.red);
-        Debug.DrawLine(Vector2.zero, vector2 * 10, Color.green);
-        Debug.DrawLine(Vector2.zero, vector3 * 10, Color.blue);
-        // 두 vector의 각도 구하기 END
+        // // 두 vector의 각도 구하기 START
+        // vector2 = Quaternion.AngleAxis(testAngle, Vector3.forward) * vector1;
+        // vector3 = Quaternion.AngleAxis(testAngle * -1f, Vector3.forward) * vector1;
+        // Debug.DrawLine(Vector2.zero, vector1 * 10, Color.red);
+        // Debug.DrawLine(Vector2.zero, vector2 * 10, Color.green);
+        // Debug.DrawLine(Vector2.zero, vector3 * 10, Color.blue);
+        // // 두 vector의 각도 구하기 END
         
         // Debug.DrawLine(Vector2.zero, Vector2.right * 10, Color.red);
         // // Debug.DrawLine(Vector2.zero, ballReflectVector * 10, Color.blue);

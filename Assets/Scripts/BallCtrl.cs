@@ -6,8 +6,10 @@ public class BallCtrl : MonoBehaviour
 {
     public float BallInitialVelocity; // 볼의 가속 속도
     public float reflectAngleRangeOnPaddle; // paddle에서 볼이 반사되는 허용 각도
+    public float reflectLimitAngle; // 이 각도 이하 벡터일 경우 무조건 이 각도로 튕기게 하기 위한 변수
     private Vector2 startVector;
     private Vector2 ballVector;
+    private float ballVectorAngle;
     private float timer;
     private int waitTime;
     private Vector2 hitPos;
@@ -29,6 +31,8 @@ public class BallCtrl : MonoBehaviour
     {
         reflectAngleRangeOnPaddle = 160f;
         startVector = new Vector2(1f, 2f).normalized;
+
+        reflectLimitAngle = 5f;
 
         timer = 0.0f;
         waitTime = 5;
@@ -80,6 +84,17 @@ public class BallCtrl : MonoBehaviour
 
         if (other.tag == "WallRight")
         {
+            // 규정 반사 각도 이하인지 체크해서 규정 반사 각도로 조정하기
+            ballVectorAngle = Mathf.Atan2(ballVector.y, ballVector.x) * Mathf.Rad2Deg;
+            if (0f <= ballVectorAngle && ballVectorAngle < reflectLimitAngle)
+            {
+                ballVector = Quaternion.AngleAxis(reflectLimitAngle, Vector3.forward) * Vector2.right;
+            }
+            else if (reflectLimitAngle * -1 < ballVectorAngle && ballVectorAngle <= 0f)
+            {
+                ballVector = Quaternion.AngleAxis(reflectLimitAngle * -1, Vector3.forward) * Vector2.right;
+            }
+
             // 오른쪽 벽 반사
             ballVector = Vector2.Reflect(ballVector, Vector2.left);
             ballRigidBody.velocity = ballVector.normalized * BallInitialVelocity;
@@ -140,7 +155,7 @@ public class BallCtrl : MonoBehaviour
         TouchInfo touchInfo = AppUtil.GetTouch();
 
         // 마우스 왼쪽 키를 누르면 볼에 가속도를 준다
-        if (touchInfo == TouchInfo.Ended)
+        if (touchInfo == TouchInfo.Ended && isBallInPlay == false)
         {
             BallInitialVelocity = 4.0f;
             
@@ -158,6 +173,6 @@ public class BallCtrl : MonoBehaviour
     void BallVelocityPlus(float speed)
     {
         BallInitialVelocity += speed;
-        BallInitialVelocity = Mathf.Clamp(BallInitialVelocity, 4f, 8f); // ball 최저, 최고 속도
+        BallInitialVelocity = Mathf.Clamp(BallInitialVelocity, 4f, 10f); // ball 최저, 최고 속도
     }
 }
