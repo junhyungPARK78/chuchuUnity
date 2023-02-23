@@ -8,6 +8,9 @@ TagManager:
   - Ball
   - Block
   - DeadZone
+  - Roof
+  - WallLeft
+  - WallRight
   layers:
   - Default
   - TransparentFX
