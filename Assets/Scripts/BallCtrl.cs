@@ -41,7 +41,7 @@ public class BallCtrl : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         hitPos = gameObject.transform.position;
-        ballVector = ballRigidBody.velocity;
+        ballVector = ballRigidBody.linearVelocity;
         
         Debug.DrawLine(hitPos, hitPos + ballVector, Color.yellow, 1.5f, false);
         
@@ -65,21 +65,21 @@ public class BallCtrl : MonoBehaviour
             ====== Log 종료 ======");
 
             // 공 반사시키기
-            ballRigidBody.velocity = ballReflectVector * BallInitialVelocity;
+            ballRigidBody.linearVelocity = ballReflectVector * BallInitialVelocity;
         }
 
         if (other.tag == "Roof")
         {
             // 천장 반사
             ballVector = Vector2.Reflect(ballVector, Vector2.down);
-            ballRigidBody.velocity = ballVector.normalized * BallInitialVelocity;
+            ballRigidBody.linearVelocity = ballVector.normalized * BallInitialVelocity;
         }
 
         if (other.tag == "WallLeft")
         {
             // 왼쪽 벽 반사
             ballVector = Vector2.Reflect(ballVector, Vector2.right);
-            ballRigidBody.velocity = ballVector.normalized * BallInitialVelocity;
+            ballRigidBody.linearVelocity = ballVector.normalized * BallInitialVelocity;
         }
 
         if (other.tag == "WallRight")
@@ -97,7 +97,7 @@ public class BallCtrl : MonoBehaviour
 
             // 오른쪽 벽 반사
             ballVector = Vector2.Reflect(ballVector, Vector2.left);
-            ballRigidBody.velocity = ballVector.normalized * BallInitialVelocity;
+            ballRigidBody.linearVelocity = ballVector.normalized * BallInitialVelocity;
         }
 
         if (other.tag == "DeadZone")
@@ -106,7 +106,7 @@ public class BallCtrl : MonoBehaviour
             // ballVector = new Vector2(Random.Range(-1.5f, 1.5f), 1f);
             ballVector.y *= -1;
             BallVelocityPlus(-2.0f);
-            ballRigidBody.velocity = ballVector.normalized * BallInitialVelocity;
+            ballRigidBody.linearVelocity = ballVector.normalized * BallInitialVelocity;
 
             // debug 정보 모음
             Debug.Log (@$"
@@ -164,9 +164,9 @@ public class BallCtrl : MonoBehaviour
 
             transform.parent = null;
             isBallInPlay = true;
-            ballRigidBody.isKinematic = false;
+            ballRigidBody.bodyType = RigidbodyType2D.Dynamic;
             
-            ballRigidBody.velocity = startVector * BallInitialVelocity;
+            ballRigidBody.linearVelocity = startVector * BallInitialVelocity;
         }        
     }
 
